@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Asianna</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0a1f44;
+      color: white;
+      overflow: hidden;
+    }
+
+    /* Envelope */
+    .envelope {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #0a1f44, #1c3f60);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 10;
+      transition: opacity 1s ease;
+    }
+
+    .envelope h1 {
+      color: silver;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .open-btn {
+      padding: 15px 30px;
+      font-size: 1.2em;
+      border: 2px solid silver;
+      border-radius: 10px;
+      background: #1c3f60;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .open-btn:hover {
+      background: silver;
+      color: #0a1f44;
+    }
+
+    /* Content */
+    .content {
+      display: none;
+      text-align: center;
+      padding: 40px;
+      animation: fadeIn 2s ease forwards;
+      position: relative;
+      z-index: 1;
+    }
+
+    .content h2 {
+      font-size: 3em;
+      color: white;
+      text-shadow: 0 0 10px gold, 0 0 20px silver;
+    }
+
+    .content p {
+      max-width: 700px;
+      margin: auto;
+      font-size: 1.3em;
+      line-height: 1.8;
+      color: silver;
+    }
+
+    .cake {
+      margin-top: 30px;
+      width: 220px;
+      border: 5px solid silver;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.4);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Balloon */
+    .balloon {
+      position: absolute;
+      bottom: -150px;
+      width: 60px;
+      height: 80px;
+      border-radius: 50%;
+      animation: floatUp 10s linear infinite;
+    }
+
+    .balloon::before {
+      content: "";
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      width: 2px;
+      height: 20px;
+      background: silver;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) rotate(0deg);
+      }
+      100% {
+        transform: translateY(-120vh) rotate(360deg);
+      }
+    }
+
+    /* Confetti */
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      animation: fall 5s linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+      }
+      100% {
+        transform: translateY(100vh) rotate(720deg);
+      }
+    }
+
+    /* Stars */
+    .star {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle 2s infinite alternate;
+    }
+
+    @keyframes twinkle {
+      from {
+        opacity: 0.2;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* Marquee */
+    .marquee {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: #1c3f60;
+      color: gold;
+      padding: 10px;
+      font-size: 1.2em;
+      text-align: center;
+      z-index: 2;
+    }
+
+    /* Fireworks canvas */
+    #fireworks {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Envelope -->
+  <div class="envelope" id="envelope">
+    <h1>💌 SILAHKAN TOMBOL TERSEBUT 💌</h1>
+    <button class="open-btn" onclick="openCard()">Open</button>
+  </div>
+
+  <!-- Content -->
+  <div class="content" id="content">
+    <h2>🎉 Happy Birthday Asianna Pakpahan 🎉</h2>
+
+    <p>
+      Selamat ulang tahun yang ke-17, Asianna! ✨<br><br>
+
+      Semoga panjag umur,
+      sehat selalu,
+      semoga setiap impianmu terwujud,
+      dan doa terbaik untukmu. 💖<br><br>
+
+    </p>🌺ADA YANG MAU PUNYA KTP CIEEE🌺<br><br>
+
+    <!-- Gambar Kue -->
+    <img src="foto.jpeg" width="200">
+<img src="cake" width="200">
+<img src="foto.jpeg" width="200"
+
+
+>
+  
+  
+    >
+
+    <!-- Balloons -->
+    <div class="balloon" style="left:20%; background:#0a1f44; animation-delay:0s;"></div>
+    <div class="balloon" style="left:40%; background:#1c3f60; animation-delay:2s;"></div>
+    <div class="balloon" style="left:60%; background:silver; animation-delay:4s;"></div>
+    <div class="balloon" style="left:80%; background:white; animation-delay:6s;"></div>
+  </div>
+
+  <!-- Marquee -->
+  <div class="marquee">
+    🎂 Selamat Ulang Tahun Asianna! 🎂 
+  </div>
+
+  <!-- Fireworks -->
+  <canvas id="fireworks"></canvas>
+
+  <script>
+    function openCard() {
+      document.getElementById("envelope").style.opacity = "0";
+
+      setTimeout(() => {
+        document.getElementById("envelope").style.display = "none";
+        document.getElementById("content").style.display = "block";
+
+        launchConfetti();
+        launchStars();
+        startFireworks();
+      }, 1000);
+    }
+
+    /* Confetti */
+    function launchConfetti() {
+      for (let i = 0; i < 50; i++) {
+        let confetti = document.createElement("div");
+
+        confetti.classList.add("confetti");
+
+        confetti.style.left =
+          Math.random() * window.innerWidth + "px";
+
+        confetti.style.top = "-20px";
+
+        confetti.style.backgroundColor =
+          ["silver", "white", "#1c3f60", "#0a1f44", "gold", "pink"]
+          [Math.floor(Math.random() * 6)];
+
+        confetti.style.animationDuration =
+          (Math.random() * 3 + 2) + "s";
+
+        document.body.appendChild(confetti);
+
+        setTimeout(() => {
+          confetti.remove();
+        }, 5000);
+      }
+    }
+
+    /* Stars */
+    function launchStars() {
+      for (let i = 0; i < 40; i++) {
+        let star = document.createElement("div");
+
+        star.classList.add("star");
+
+        star.style.left =
+          Math.random() * window.innerWidth + "px";
+
+        star.style.top =
+          Math.random() * window.innerHeight + "px";
+
+        document.body.appendChild(star);
+      }
+    }
+
+    /* Fireworks */
+    function startFireworks() {
+      const canvas = document.getElementById("fireworks");
+      const ctx = canvas.getContext("2d");
+
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      let fireworks = [];
+
+      function random(min, max) {
+        return Math.random() * (max - min) + min;
+      }
+
+      function Firework() {
+        this.x = random(0, canvas.width);
+        this.y = canvas.height;
+        this.targetY = random(canvas.height / 4, canvas.height / 2);
+
+        this.color = `hsl(${random(0,360)},100%,50%)`;
+
+        this.radius = 3;
+        this.speed = random(3, 7);
+
+        this.exploded = false;
+        this.particles = [];
+      }
+
+      Firework.prototype.update = function () {
+
+        if (!this.exploded) {
+
+          this.y -= this.speed;
+
+          if (this.y <= this.targetY) {
+
+            this.exploded = true;
+
+            for (let i = 0; i < 30; i++) {
+
+              this.particles.push({
+                x: this.x,
+                y: this.y,
+                angle: random(0, Math.PI * 2),
+                speed: random(1, 5),
+                radius: 2,
+                color: this.color,
+                life: 100
+              });
+            }
+          }
+
+        } else {
+
+          this.particles.forEach(p => {
+            p.x += Math.cos(p.angle) * p.speed;
+            p.y += Math.sin(p.angle) * p.speed;
+            p.life--;
+          });
+        }
+      };
+
+      Firework.prototype.draw = function () {
+
+        if (!this.exploded) {
+
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+
+          ctx.fillStyle = this.color;
+          ctx.fill();
+
+        } else {
+
+          this.particles.forEach(p => {
+
+            ctx.beginPath();
+
+            ctx.arc(
+              p.x,
+              p.y,
+              p.radius,
+              0,
+              Math.PI * 2
+            );
+
+            ctx.fillStyle = p.color;
+            ctx.fill();
+          });
+        }
+      };
+
+      function animate() {
+
+        ctx.clearRect(
+          0,
+          0,
+          canvas.width,
+          canvas.height
+        );
+
+        if (Math.random() < 0.05) {
+          fireworks.push(new Firework());
+        }
+
+        fireworks.forEach((fw, index) => {
+
+          fw.update();
+          fw.draw();
+
+          if (
+            fw.exploded &&
+            fw.particles.every(p => p.life <= 0)
+          ) {
+            fireworks.splice(index, 1);
+          }
+        });
+
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+    }
+
+    /* Responsive canvas */
+    window.addEventListener("resize", () => {
+      const canvas = document.getElementById("fireworks");
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
+
+</body>
+</html>
+```
